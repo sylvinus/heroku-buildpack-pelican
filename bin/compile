@@ -76,7 +76,7 @@ fi
 ls -la
 ls -la $BUILD_DIR
 
-pelican -v -d -o $BUILD_DIR/public -s $CONFIG_FILE $BUILD_DIR/content | indent
+pelican -D -d -o $BUILD_DIR/public -s $CONFIG_FILE $BUILD_DIR/content | indent
 
 puts-step "Installing pcre ($PCRE_VERSION)"
 if [[ ! -d "$CACHE_DIR/$PCRE_VERSION" ]]; then
