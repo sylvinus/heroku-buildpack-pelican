@@ -31,13 +31,15 @@ if [ -d "$ENV_DIR" ]; then
   for e in $(ls $ENV_DIR); do
     echo "VAR: $e"
     echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
-    export "$e=$(cat $ENV_DIR/$e)"
+    export "$e=$(cat $ENV_DIR/$e)" &&
+    echo "EXP $e"
     :
   done
 fi
 
 echo $ENV_DIR
 ls -la $ENV_DIR
+env
 
 puts-step "Building pelican site $PELICAN_SITEURL"
 
