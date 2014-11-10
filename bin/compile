@@ -24,16 +24,11 @@ PCRE_VERSION='pcre-8.35'
 source $BIN_DIR/utils
 
 # Export env variables while building. Must do this as user-env-compile was deprecated.
-whitelist_regex=${2:-''}
-blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
 if [ -d "$ENV_DIR" ]; then
   echo "DIR!"
   for e in $(ls $ENV_DIR); do
-    echo "VAR: $e"
-    echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
     export "$e=$(cat $ENV_DIR/$e)" &&
     echo "EXP $e"
-    :
   done
 fi
 
