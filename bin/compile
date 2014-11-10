@@ -26,6 +26,8 @@ if [ -d "$ENV_DIR" ]; then
   done
 fi
 
+puts-step "Building pelican site $(PELICAN_SITEURL)"
+
 # Versions.
 PYTHON_VERSION="python-2.7.4"
 DISTRIBUTE_VERSION="distribute-0.6.49"
