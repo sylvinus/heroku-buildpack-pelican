@@ -15,6 +15,14 @@ WORKING_DIR=$(pwd)
 rm -fr $CACHE_DIR
 mkdir -p $CACHE_DIR
 
+# Versions.
+PYTHON_VERSION="python-2.7.4"
+DISTRIBUTE_VERSION="distribute-0.6.49"
+PIP_VERSION="pip-1.3.1"
+NGINX_VERSION="nginx-1.6.0"
+PCRE_VERSION='pcre-8.35'
+source $BIN_DIR/utils
+
 # Export env variables while building. Must do this as user-env-compile was deprecated.
 whitelist_regex=${2:-''}
 blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
@@ -26,15 +34,7 @@ if [ -d "$ENV_DIR" ]; then
   done
 fi
 
-puts-step "Building pelican site $(PELICAN_SITEURL)"
-
-# Versions.
-PYTHON_VERSION="python-2.7.4"
-DISTRIBUTE_VERSION="distribute-0.6.49"
-PIP_VERSION="pip-1.3.1"
-NGINX_VERSION="nginx-1.6.0"
-PCRE_VERSION='pcre-8.35'
-source $BIN_DIR/utils
+puts-step "Building pelican site ($PELICAN_SITEURL)"
 
 mkdir -p $BUILD_DIR/local/sbin
 
