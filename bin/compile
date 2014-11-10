@@ -27,14 +27,19 @@ source $BIN_DIR/utils
 whitelist_regex=${2:-''}
 blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
 if [ -d "$ENV_DIR" ]; then
+  echo "DIR!"
   for e in $(ls $ENV_DIR); do
+    echo "VAR: $e"
     echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
     export "$e=$(cat $ENV_DIR/$e)"
     :
   done
 fi
 
-puts-step "Building pelican site ($PELICAN_SITEURL)"
+echo $ENV_DIR
+ls -la $ENV_DIR
+
+puts-step "Building pelican site $PELICAN_SITEURL"
 
 mkdir -p $BUILD_DIR/local/sbin
 
