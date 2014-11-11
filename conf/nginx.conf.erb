@@ -30,6 +30,10 @@ http {
     server_name <%= require 'uri'; URI.parse(ENV["PELICAN_SITEURL"]).host %>;
   <% end %>
 
+    location ~ .*/[^\.]+$ {
+      try_files $uri.html $uri/ =404;
+    }
+
     location / {
       expires 10s;
     }
