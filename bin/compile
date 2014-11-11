@@ -26,7 +26,7 @@ source $BIN_DIR/utils
 # Export env variables while building. Must do this as user-env-compile was deprecated.
 if [ -d "$ENV_DIR" ]; then
   for e in $(ls $ENV_DIR); do
-    export "$e=$(cat $ENV_DIR/$e)" &&
+    export "$e=$(cat $ENV_DIR/$e)"
   done
 fi
 
