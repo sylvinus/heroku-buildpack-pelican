@@ -25,16 +25,10 @@ source $BIN_DIR/utils
 
 # Export env variables while building. Must do this as user-env-compile was deprecated.
 if [ -d "$ENV_DIR" ]; then
-  echo "DIR!"
   for e in $(ls $ENV_DIR); do
     export "$e=$(cat $ENV_DIR/$e)" &&
-    echo "EXP $e"
   done
 fi
-
-echo $ENV_DIR
-ls -la $ENV_DIR
-env
 
 puts-step "Building pelican site $PELICAN_SITEURL"
 
