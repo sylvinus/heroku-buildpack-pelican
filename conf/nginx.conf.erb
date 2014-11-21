@@ -29,6 +29,8 @@ http {
   <% if ENV["PELICAN_SITEURL"] %>
     server_name <%= require 'uri'; URI.parse(ENV["PELICAN_SITEURL"]).host %>;
   <% end %>
+  
+    include /app/nginx/*.conf;
 
     location ~ .*/[^\.]+$ {
       try_files $uri.html $uri/ =404;
