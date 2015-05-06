@@ -74,9 +74,6 @@ fi
 
 # install sass
 puts-step "Installing Sass"
-
-# install compass
-status "Installing Compass"
 HOME=$BUILD_DIR gem install sass --no-rdoc --no-ri --user-install
 export GEM_HOME="$BUILD_DIR:$GEM_HOME"
 
