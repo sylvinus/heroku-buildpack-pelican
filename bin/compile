@@ -17,7 +17,7 @@ mkdir -p $CACHE_DIR
 
 # Versions.
 PYTHON_VERSION="python-2.7.4"
-DISTRIBUTE_VERSION="distribute-0.7.3"
+DISTRIBUTE_VERSION="distribute-0.6.49"
 PIP_VERSION="pip-1.3.1"
 NGINX_VERSION="nginx-1.6.0"
 PCRE_VERSION='pcre-8.35'
@@ -43,13 +43,13 @@ fi
 
 export PATH=$CACHE_DIR/$PYTHON_VERSION/bin:$PATH
 
-#if [[ ! -d "$CACHE_DIR/$DISTRIBUTE_VERSION" ]]; then
-#  cd $CACHE_DIR
-#  puts-step "Installing Distribute ($DISTRIBUTE_VERSION)"
-#  curl https://pypi.python.org/packages/source/d/distribute/$DISTRIBUTE_VERSION.tar.gz -s | tar xz &> /dev/null
-#  cd $DISTRIBUTE_VERSION
-#  python setup.py install &> /dev/null
-#fi
+if [[ ! -d "$CACHE_DIR/$DISTRIBUTE_VERSION" ]]; then
+  cd $CACHE_DIR
+  puts-step "Installing Distribute ($DISTRIBUTE_VERSION)"
+  curl https://pypi.python.org/packages/source/d/distribute/$DISTRIBUTE_VERSION.tar.gz -s | tar xz &> /dev/null
+  cd $DISTRIBUTE_VERSION
+  python setup.py install &> /dev/null
+fi
 
 if [[ ! -d "$CACHE_DIR/$PIP_VERSION" ]]; then
   cd $CACHE_DIR
@@ -81,6 +81,7 @@ else
 fi
 PATH="$GEM_HOME/bin:$PATH"
 echo $PATH
+echo $build_dir
 if test -d $cache_dir/ruby/.gem; then
   puts-step "Restoring ruby gems directory from cache"
   cp -r $cache_dir/ruby/.gem $build_dir
