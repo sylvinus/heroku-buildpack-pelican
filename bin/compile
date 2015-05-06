@@ -74,9 +74,36 @@ fi
 
 # install sass
 puts-step "Installing Sass"
-HOME=$BUILD_DIR gem install sass --no-rdoc --no-ri --user-install
-export GEM_HOME=$BUILD_DIR
-export PATH="$BUILD_DIR/.gem/ruby/2.2.0/bin:$BUILD_DIR/.gem/ruby/1.9.1/bin:$PATH"
+
+LIBSASS_DIR="$CACHE_DIR/libsass"
+SASSC_DIR="$CACHE_DIR/sassc"
+
+if [[ ! -d "$LIBSASS_DIR/.git" ]]; then
+    puts-step "Downloading libsass"
+    git clone https://github.com/sass/libsass.git $LIBSASS_DIR
+fi
+cd $LIBSASS_DIR
+git checkout 3.1.0
+puts-step "Building libsass"
+make static
+
+if [[ ! -d "$SASSC_DIR/.git" ]]; then
+    puts-step "Downloading sassc"
+    git clone https://github.com/sass/sassc.git $SASSC_DIR
+fi
+cd $SASSC_DIR
+git checkout 3.1.0
+puts-step "Building sassc"
+SASS_LIBSASS_PATH=$LIBSASS_DIR make build-static
+
+puts-step "Installing sassc"
+
+cp $SASSC_DIR/bin/sassc $BUILD_DIR/bin/sass
+export PATH="$BUILD_DIR/bin:$PATH"
+
+ls -la
+ls -la $BUILD_DIR
+
 
 puts-step "Running pelican"
 
