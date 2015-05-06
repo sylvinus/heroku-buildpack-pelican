@@ -83,14 +83,6 @@ else
   HOME=$BUILD_DIR gem install sass --user-install --no-rdoc --no-ri
 fi
 
-which ruby
-ruby -v
-which gem
-ls -la $BUILD_DIR
-ls -la $GEM_HOME
-ls -la $BUILD_DIR/.gem/ruby/2.2.0/bin
-which sass
-
 # cache ruby gems sass
 rm -rf $CACHE_DIR/ruby
 mkdir -p $CACHE_DIR/ruby
