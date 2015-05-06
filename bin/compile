@@ -75,29 +75,30 @@ fi
 # install sass
 puts-step "Installing Sass"
 if [ "$STACK" == "cedar-14" ]; then
-  export GEM_HOME=$cache_dir/ruby/.gem/ruby/2.2.0
+  export GEM_HOME=$CACHE_DIR/ruby/.gem/ruby/2.2.0
 else
-  export GEM_HOME=$cache_dir/ruby/.gem/ruby/1.9.1
+  export GEM_HOME=$CACHE_DIR/ruby/.gem/ruby/1.9.1
 fi
 PATH="$GEM_HOME/bin:$PATH"
 echo $PATH
-echo $build_dir
-if test -d $cache_dir/ruby/.gem; then
+echo $BUILD_DIR
+echo $CACHE_DIR
+if test -d $CACHE_DIR/ruby/.gem; then
   puts-step "Restoring ruby gems directory from cache"
-  cp -r $cache_dir/ruby/.gem $build_dir
-  HOME=$build_dir gem update sass --user-install --no-rdoc --no-ri
+  cp -r $CACHE_DIR/ruby/.gem $BUILD_DIR
+  HOME=$BUILD_DIR gem update sass --user-install --no-rdoc --no-ri
 else
-  HOME=$build_dir gem install sass --user-install --no-rdoc --no-ri
+  HOME=$BUILD_DIR gem install sass --user-install --no-rdoc --no-ri
 fi
 
 # cache ruby gems compass
-rm -rf $cache_dir/ruby
-mkdir -p $cache_dir/ruby
+rm -rf $CACHE_DIR/ruby
+mkdir -p $CACHE_DIR/ruby
 
 # If app has a gems directory, cache it.
-if test -d $build_dir/.gem; then
+if test -d $BUILD_DIR/.gem; then
   puts-step "Caching ruby gems directory for future builds"
-  cp -r $build_dir/.gem $cache_dir/ruby
+  cp -r $BUILD_DIR/.gem $CACHE_DIR/ruby
 fi
 
 puts-step "Running pelican"
