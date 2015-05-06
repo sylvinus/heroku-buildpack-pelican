@@ -74,7 +74,7 @@ fi
 
 # install sass
 puts-step "Installing Sass"
-export GEM_HOME=$BUILD_DIR/.gem/ruby/1.9.1
+export GEM_HOME=$BUILD_DIR/.gem/ruby/2.2.0
 export PATH="$GEM_HOME/bin:$BUILD_DIR/.gem/ruby/1.9.1/bin:$BUILD_DIR/.gem/ruby/2.2.0/bin:$PATH"
 if test -d $CACHE_DIR/ruby/.gem; then
   cp -r $CACHE_DIR/ruby/.gem $BUILD_DIR
@@ -88,7 +88,6 @@ ruby -v
 which gem
 ls -la $BUILD_DIR
 ls -la $GEM_HOME
-ls -la $BUILD_DIR/.gem/ruby/1.9.1/bin
 ls -la $BUILD_DIR/.gem/ruby/2.2.0/bin
 which sass
 
