@@ -74,36 +74,25 @@ fi
 
 # install sass
 puts-step "Installing Sass"
-
-LIBSASS_DIR="$CACHE_DIR/libsass"
-SASSC_DIR="$CACHE_DIR/sassc"
-
-if [[ ! -d "$LIBSASS_DIR/.git" ]]; then
-    puts-step "Downloading libsass"
-    git clone https://github.com/sass/libsass.git $LIBSASS_DIR
+export GEM_HOME=$BUILD_DIR/.gem/ruby/1.9.1
+export PATH="$GEM_HOME/bin:$PATH"
+if test -d $CACHE_DIR/ruby/.gem; then
+  cp -r $CACHE_DIR/ruby/.gem $BUILD_DIR
+  HOME=$BUILD_DIR gem update sass --user-install --no-rdoc --no-ri
+else
+  HOME=$BUILD_DIR gem install sass --user-install --no-rdoc --no-ri
 fi
-cd $LIBSASS_DIR
-git checkout 3.1.0
-puts-step "Building libsass"
-make static
 
-if [[ ! -d "$SASSC_DIR/.git" ]]; then
-    puts-step "Downloading sassc"
-    git clone https://github.com/sass/sassc.git $SASSC_DIR
-fi
-cd $SASSC_DIR
-git checkout 3.1.0
-puts-step "Building sassc"
-SASS_LIBSASS_PATH=$LIBSASS_DIR make build-static
-
-puts-step "Installing sassc"
-
-cp $SASSC_DIR/bin/sassc $BUILD_DIR/bin/sass
-export PATH="$BUILD_DIR/bin:$PATH"
-
-ls -la
+which ruby
+which sass
 ls -la $BUILD_DIR
+ls -la $BUILD_DIR/bin
+ls -la $GEM_HOME
+ls -la $GEM_HOME/bin
 
+# cache ruby gems sass
+rm -rf $CACHE_DIR/ruby
+mkdir -p $CACHE_DIR/ruby
 
 puts-step "Running pelican"
 
@@ -154,4 +143,3 @@ fi
 
 cp $ROOT_DIR/conf/mime.types $BUILD_DIR/
 cp $BIN_DIR/launch-nginx "$BUILD_DIR/local/sbin"
-
