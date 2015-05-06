@@ -74,27 +74,11 @@ fi
 
 # install sass
 puts-step "Installing Sass"
-PATH="$BUILD_DIR/.gem/ruby/2.2.0/bin:$CACHE_DIR/ruby/.gem/ruby/2.2.0/bin:$PATH"
-echo $PATH
-echo $BUILD_DIR
-echo $CACHE_DIR
-if test -d $CACHE_DIR/ruby/.gem; then
-  puts-step "Restoring ruby gems directory from cache"
-  cp -r $CACHE_DIR/ruby/.gem $BUILD_DIR
-  HOME=$BUILD_DIR gem update sass --user-install --no-rdoc --no-ri
-else
-  HOME=$BUILD_DIR gem install sass --user-install --no-rdoc --no-ri
-fi
 
-# cache ruby gems compass
-rm -rf $CACHE_DIR/ruby
-mkdir -p $CACHE_DIR/ruby
-
-# If app has a gems directory, cache it.
-if test -d $BUILD_DIR/.gem; then
-  puts-step "Caching ruby gems directory for future builds"
-  cp -r $BUILD_DIR/.gem $CACHE_DIR/ruby
-fi
+# install compass
+status "Installing Compass"
+HOME=$BUILD_DIR gem install sass --no-rdoc --no-ri --user-install
+export GEM_HOME="$BUILD_DIR:$GEM_HOME"
 
 puts-step "Running pelican"
 
