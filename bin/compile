@@ -75,7 +75,8 @@ fi
 # install sass
 puts-step "Installing Sass"
 HOME=$BUILD_DIR gem install sass --no-rdoc --no-ri --user-install
-export GEM_HOME="$BUILD_DIR:$GEM_HOME"
+export GEM_HOME=$BUILD_DIR
+export PATH="$BUILD_DIR/.gem/ruby/2.2.0/bin:$BUILD_DIR/.gem/ruby/1.9.1/bin:$PATH"
 
 puts-step "Running pelican"
 
