@@ -82,9 +82,11 @@ ls -la $WORKING_DIR
 
 cd $BUILD_DIR
 
+export PATH=$WORKING_DIR/.local/bin:$PATH
+
 if [[ -f requirements.txt ]]; then
   puts-step "Installing dependencies using pip"
-  $WORKING_DIR/.local/bin/pip install --user --no-cache-dir -r requirements.txt | indent
+  pip install --user --no-cache-dir -r requirements.txt | indent
 else
   puts-step "Installing Pelican"
   pip install pelican | indent
