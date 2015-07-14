@@ -62,23 +62,7 @@ mkdir -p $BUILD_DIR/local/sbin
 
 puts-step "Install pip"
 
-ls -la .
-ls -la $ROOT_DIR
-echo $CACHE_DIR
-ls -la $CACHE_DIR
-echo $BUILD_DIR
-ls -la $BUILD_DIR
-
 python $BIN_DIR/get-pip.py --user
-
-ls -la .
-ls -la $ROOT_DIR
-echo $CACHE_DIR
-ls -la $CACHE_DIR
-echo $BUILD_DIR
-ls -la $BUILD_DIR
-echo $WORKING_DIR
-ls -la $WORKING_DIR
 
 cd $BUILD_DIR
 
