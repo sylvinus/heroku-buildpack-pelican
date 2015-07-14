@@ -69,7 +69,7 @@ ls -la $CACHE_DIR
 echo $BUILD_DIR
 ls -la $BUILD_DIR
 
-python $BIN_DIR/get-pip.py
+python $BIN_DIR/get-pip.py --user
 
 ls -la .
 ls -la $ROOT_DIR
@@ -77,12 +77,14 @@ echo $CACHE_DIR
 ls -la $CACHE_DIR
 echo $BUILD_DIR
 ls -la $BUILD_DIR
+echo $WORKING_DIR
+ls -la $WORKING_DIR
 
 cd $BUILD_DIR
 
 if [[ -f requirements.txt ]]; then
   puts-step "Installing dependencies using pip"
-  pip install --no-cache-dir -r requirements.txt | indent
+  $WORKING_DIR/.local/bin/pip install --user --no-cache-dir -r requirements.txt | indent
 else
   puts-step "Installing Pelican"
   pip install pelican | indent
